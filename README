@@ -1,0 +1,36 @@
+# Dokumentation för backup
+
+# Kö samba_setup.sh på servern för att starta en delad mapp
+# Namn på sharen i windows borde vara tex \\RASPBERRYPI\Backup
+
+# Hårddisk måste mountas på /backup
+# Exempel på fstab entry finns i fstab_template
+
+# Powershell scriptet zippar alla mappar som finns i backup_locations lokalt och kopierar över dem till servern
+# Efter första kompressionen så kommer den bara att komprimera och kopiera över ändringar
+# Scriptet tar en parameter "device_name" som är namnet på den lokala klienten
+
+# Sync_files hämtar alla backups på servern som inte kommer från den lokala maskinen, dvs alla som inte startar med den lokala "device_name" variabeln
+
+# sync_files och run_backup kan köras på schema eller på kommando
+# Idéellt så ska det finnas en kopia av alla zippade backup filer på varje ansluten maskin, samt en kopia av alla setup filer som tex detta dokument
+# Lokalt kommer det också finnas en extra kompirmerad kopia allt som updateras allt eftersom det gör ändringar i orginalfilen
+
+# Mappstruktur lokalt bör vara:
+# root/
+#       run_backup.sh
+#       sync_files.sh
+#       setup_files/
+#           samba_setup.sh
+#           etc...           
+#       backups/
+#          exempel_backup.zip
+
+# Mappstruktur på servern bör vara:
+# /backup/
+#       exempel_backup.zip
+#       archive/
+#           månatliga/kopior
+#       setup_files/
+#           samba_setup.sh
+#           etc...
